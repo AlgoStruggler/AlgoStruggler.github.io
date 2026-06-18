@@ -3,13 +3,13 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
-subtitle: ''
-description: ''
-keywords:
-author: John Doe
-language: en
-timezone: ''
+title: AlgoStruggler · 算法手记
+subtitle: '愿幸运女神与最纯粹的前行者同在。'
+description: '算法苦手的算法手记，愿所有选手都可以在算法竞赛里找到一份纯粹的快乐。'
+keywords: 技术,算法,数据结构,算法竞赛
+author: AlgoStruggler
+language: zh-CN
+timezone: 'Asia/Shanghai'
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
@@ -96,9 +96,16 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: landscape
+theme: argon
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: ''
+
+# 搜索功能配置
+search:
+  path: search.json
+  field: post
+  content: true
+  format: html
