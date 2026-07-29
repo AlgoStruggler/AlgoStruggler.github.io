@@ -9,19 +9,23 @@ font: sans-serif # 默认字体，可选: sans-serif 无衬线字体, serif 衬�
 enable_headroom: false # 滚动时是否自动折叠顶栏
 
 # 顶栏
-toolbar_icon: '' # 顶栏图标图片地址，留空则不显示
-toolbar_icon_link: '' # 顶栏图标链接，点击时跳转
+toolbar_icon: '/assets/img/author.png' # 顶栏图标图片地址，留空则不显示
+toolbar_icon_link: '/' # 顶栏图标链接，点击时跳转
 toolbar_title: '' # 顶栏标题，留空则跟随博客标题
 toolbar_menu: # 顶栏菜单，支持二级菜单
-  首页: /home
-  二级菜单:
-    归档: /archives
+  首页: /
+  归档: /archives
+  关于: /about
+  系列文章:
+    顺序程序设计: /categories/顺序程序设计/
+    选择结构: /categories/选择结构/
+    循环结构: /categories/循环结构/
 
 # Banner
-banner_title: '' # Banner 标题，留空则跟随博客标题
-enable_banner_title_typing_effect: false # 是否启用 Banner 打字效果
+banner_title: 'AlgoStruggler · 算法手记' # Banner 标题，留空则跟随博客标题
+enable_banner_title_typing_effect: true # 是否启用 Banner 打字效果
 theme.banner_typing_effect_interval: 100 # Banner 打字间隔时长，单位 ms/字
-banner_subtitle: '' # Banner 子标题，留空则不显示
+banner_subtitle: '愿幸运女神与最纯粹的前行者同在。' # Banner 子标题，留空则不显示
 banner_background_url: '/assets/img/banner.jpg' # Banner 背景图，留空则不显示
 banner_background_hide_shapes: false # 是否隐藏 Banner 背景圆形
 banner_background_color_type: 'shape-primary' # Banner 渐变样式，Banner 背景图会覆盖该选项，可选值: shape-primary, shape-default, shape-dark, bg-gradient-success, bg-gradient-info, bg-gradient-warning, bg-gradient-danger
@@ -29,23 +33,21 @@ banner_background_color_type: 'shape-primary' # Banner 渐变样式，Banner 背
 # 侧栏
 sidebar_banner_title: '' # 侧栏标题，留空则跟随博客标题
 sidebar_banner_subtitle: '' # 侧栏子标题，留空则不显示，设为 --hitokoto-- 调用一言
-sidebar_announcement: '' # 侧栏公告，留空则不显示
+sidebar_announcement: '欢迎来到 AlgoStruggler 的算法手记' # 侧栏公告，留空则不显示
 leftbar_menu: # 侧栏顶部菜单，支持无限层级菜单嵌套
   首页: /
   归档: /archives
-  二级菜单:
-    三级菜单:
-      首页: /
+  分类: /categories
+  标签: /tags
+  关于: /about
 sidebar_auther_image: '/assets/img/author.png' # 侧栏作者头像
 sidebar_auther_name: 'AlgoStruggler' # 侧栏作者名，留空则跟随博客名
 leftbar_author_links: # 侧栏作者链接列表
-  aaa: /
-  bbb: /
-  ccc: /
+  github: https://github.com/AlgoStruggler
+  email: mailto:79252151@qq.com
+  qq: http://wpa.qq.com/msgrd?v=3&uin=79252151
 leftbar_friend_links: # 侧栏友链列表
-  aaa: /
-  bbb: /
-  ccc: /
+  # 你可以在这里添加友链，格式：名称: 链接
 show_headindex_number: false # 侧栏文章目录是否显示章节编号
 
 # 文章
@@ -94,7 +96,7 @@ enable_into_article_animation: false # 是否启用进入文章动画
 enable_mobile_scale: false # 是否允许手机端缩放页面
 
 # 页脚
-footer_html: '' # 页脚 HTML
+footer_html: '© 2026 <a href="https://github.com/AlgoStruggler">AlgoStruggler</a> · 用代码丈量世界' # 页脚 HTML
 
 # 数学公式
 math_render: 'katex' # 数学公式渲染方案，留空则不渲染，可选值: mathjax3, mathjax2, katex
