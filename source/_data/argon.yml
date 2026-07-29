@@ -36,8 +36,8 @@ leftbar_menu: # 侧栏顶部菜单，支持无限层级菜单嵌套
   二级菜单:
     三级菜单:
       首页: /
-sidebar_auther_image: '/assets/img/auther.jpg' # 侧栏作者头像
-sidebar_auther_name: '' # 侧栏作者名，留空则跟随博客名
+sidebar_auther_image: "E:/AlgoStruggler/AlgoStruggler.github.io/source/assets/img/avatar.png" # 侧栏作者头像
+sidebar_auther_name: 'AlgoStruggler' # 侧栏作者名，留空则跟随博客名
 leftbar_author_links: # 侧栏作者链接列表
   aaa: /
   bbb: /
@@ -97,7 +97,7 @@ enable_mobile_scale: false # 是否允许手机端缩放页面
 footer_html: '' # 页脚 HTML
 
 # 数学公式
-math_render: '' # 数学公式渲染方案，留空则不渲染，可选值: mathjax3, mathjax2, katex
+math_render: 'katex' # 数学公式渲染方案，留空则不渲染，可选值: mathjax3, mathjax2, katex
 mathjax_cdn_url: //cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js # Mathjax 3 CDN 地址
 argon_mathjax_v2_cdn_url: //cdn.jsdelivr.net/npm/mathjax@2.7.5/MathJax.js?config=TeX-AMS_HTML # Mathjax 2 CDN 地址
 katex_cdn_url: //cdn.jsdelivr.net/npm/katex@0.11.1/dist/ # Katex CDN 地址
