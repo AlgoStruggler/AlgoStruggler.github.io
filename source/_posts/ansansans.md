@@ -16,36 +16,36 @@ int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    int n;
-    ll d;
+    int n, d;
     cin >> n >> d;
 
     vector<ll> v(n);
+    vector<ll> a(n);
+
     for (int i = 1; i < n; i++) {
         cin >> v[i];
     }
 
-    vector<ll> a(n + 1);
-    for (int i = 1; i <= n; i++) {
+    for (int i = 1; i < n; i++) {
         cin >> a[i];
     }
 
     ll ans = 0;
-    ll oil = 0;
-    ll price = a[1];
+    ll s = 0;
+    ll minp = LLONG_MAX;
+
     for (int i = 1; i < n; i++) {
-        ll need = (v[i] + d - 1) / d;
-        if (oil < need) {
-            ans += (need - oil) * a[i];
-            oil = need;
-        }
-        oil -= need;
-        if (a[i + 1] < a[i]) {
-            price = a[i + 1];
+        s += v[i];
+        minp = min(minp, a[i]);
+
+        if (s > 0) {
+            ll oil = (s + d - 1) / d;
+            ans += oil * minp;
+            s -= oil * d;
         }
     }
 
-    cout << ans << endl;
+    cout << ans << '\n';
 
     return 0;
 }
