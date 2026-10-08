@@ -1,5 +1,6 @@
 ---
 title: "第四课：HTML + CSS"
+permalink: 2026/09/27/lesson-04-html-css/
 date: 2026-09-27 01:16:50
 categories:
   - 工程
