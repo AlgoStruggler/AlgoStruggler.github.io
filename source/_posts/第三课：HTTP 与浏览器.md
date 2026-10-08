@@ -287,7 +287,7 @@ Authorization: Bearer xxx
 
 **General（概览）**
 
-```text
+```plaintext
 Request URL: https://api.github.com/users/github
 Request Method: GET
 Status Code: 200 OK
@@ -296,7 +296,7 @@ Remote Address: 140.82.xx.xx:443
 
 **Request Headers（请求头，浏览器发给服务器的）**
 
-```text
+```plaintext
 :authority: api.github.com
 :method: GET
 :path: /users/github
@@ -308,7 +308,7 @@ accept-encoding: gzip, deflate, br
 
 **Response Headers（响应头，服务器回给浏览器的）**
 
-```text
+```plaintext
 content-type: application/json; charset=utf-8
 cache-control: public, max-age=60
 etag: "xxxxx"
@@ -318,7 +318,7 @@ x-ratelimit-remaining: 59
 
 **Response Body（响应体，JSON 数据）**
 
-```text
+```plaintext
 {
   "login": "github",
   "id": 9919,
@@ -351,7 +351,7 @@ curl -i -X GET https://api.github.com/users/github  # 等价于显示指定方�
 
 `-i` 表示 **include headers**，会把响应头和响应体一起打印。会看到：
 
-```text
+```plaintext
 HTTP/2 200
 date: Fri, 18 Sep 2026 01:25:24 GMT
 content-type: application/json; charset=utf-8
@@ -480,19 +480,19 @@ fetch('https://example.com').then(r => r.text()).then(console.log)
 
 注意此时会弹出一个 `Warning` ，
 
-```text
+```plaintext
 Warning: Don’t paste code into the DevTools Console that you don’t understand or haven’t reviewed yourself. This could allow attackers to steal your identity or take control of your computer. Type "allow pasting" below and press Enter to allow pasting.
 ```
 
 此时需要你手动输入：
 
-```text
+```plaintext
 allow pasting
 ```
 
 才可以粘贴。
 
-```text
+```plaintext
 Access to fetch at 'https://example.com/' from origin 'https://www.baidu.com'
 has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header
 is present on the requested resource.

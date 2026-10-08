@@ -111,7 +111,7 @@ console.log(typeof null);      // "object"（历史 bug）
 
 **控制台里看到：**
 
-```text
+```plaintext
 number
 string
 object
@@ -177,7 +177,7 @@ console.log(doubled); // [2, 4, 6]
 
 **控制台里看到：**
 
-```text
+```plaintext
 [2, 4, 6]
 ```
 
@@ -390,7 +390,7 @@ form.addEventListener('submit', (e) => {
 `JS` 是单线程的，但能处理异步任务。
 原因是事件循环（`Event Loop`）：
 
-```text
+```plaintext
 调用栈（Call Stack）
    ↓
 微任务队列（Microtask Queue）：Promise.then、queueMicrotask
@@ -412,7 +412,7 @@ console.log('4');
 
 **控制台里看到：**
 
-```text
+```plaintext
 1
 4
 3
@@ -603,7 +603,7 @@ console.log('3');
 
 **控制台里看到：**
 
-```text
+```plaintext
 1
 3
 2

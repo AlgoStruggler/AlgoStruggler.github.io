@@ -270,7 +270,7 @@ Docker 的解法：
 
 创建以下结构：
 
-```text
+```plaintext
 ~/Engineering-Learning/
 	ports/
 		第一课：工程思维与命令行.md
