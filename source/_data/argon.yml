@@ -16,10 +16,8 @@ toolbar_menu: # 顶栏菜单，支持二级菜单
   首页: /
   归档: /archives
   关于: /about
-  系列文章:
-    顺序程序设计: /categories/顺序程序设计/
-    选择结构: /categories/选择结构/
-    循环结构: /categories/循环结构/
+  算法竞赛: /categories/算法竞赛/
+  工程: /categories/工程/
 
 # Banner
 banner_title: 'AlgoStruggler · 算法手记' # Banner 标题，留空则跟随博客标题
