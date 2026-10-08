@@ -50,6 +50,7 @@
 
 	<%- css('/assets/argon_css_merged.css') %>
 	<%- css('/style.css') %>
+	<%- css('/blog.css') %>
 	<%- css('//fonts.loli.net/css?family=Open+Sans:300,400,600,700|Noto+Serif+SC:300,600&display=swap') %>
 	<%- js('/assets/argon_js_merged.js') %>
 	<%- js('/assets/js/argon.min.js') %>
@@ -212,14 +213,15 @@
 	}
 </style>
 
-<body>
+<body class="blog-ui">
+<a class="skip-link" href="#main" no-pjax>跳到正文</a>
 <div id="toolbar">
 	<header class="header-global">
 		<nav id="navbar-main" class="navbar navbar-main navbar-expand-lg navbar-transparent navbar-light bg-primary headroom--not-bottom headroom--not-top headroom--pinned">
 			<div class="container">
 				<% if (theme.toolbar_icon != '') { %>
 					<a class="navbar-brand navbar-icon mr-lg-5" href="<%= theme.toolbar_icon_link %>">
-						<img src="<%= theme.toolbar_icon %>">
+						<img src="<%= theme.toolbar_icon %>" alt="AlgoStruggler 头像">
 					</a>
 				<% } %>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_global" aria-controls="navbar_global" aria-expanded="false" aria-label="Toggle navigation">
@@ -240,10 +242,10 @@
 					</div>
 					<ul id="navbar_search_btn_mobile" class="navbar-nav align-items-lg-center ml-lg-auto">
 						<li class="nav-item" data-toggle="modal" data-target="#argon_search_modal" style="padding-left: 5px;">
-							<a class="nav-link nav-link-icon">
-								<i class="fa fa-search"></i>
+							<button type="button" class="nav-link nav-link-icon blog-search-toggle" aria-label="搜索手记">
+								<i class="fa fa-search" aria-hidden="true"></i>
 								<span class="nav-link-inner--text d-lg-none">搜索</span>
-							</a>
+							</button>
 						</li>
 					</ul>
 					<%
@@ -273,16 +275,16 @@
 					%>
 					<ul class="navbar-nav align-items-lg-center ml-lg-auto">
 						<li class="nav-item" data-toggle="modal" data-target="#argon_search_modal" id="navbar_search_btn_pc">
-							<a class="nav-link nav-link-icon">
+							<button type="button" class="nav-link nav-link-icon blog-search-toggle" aria-label="搜索手记">
 								<i class="fa fa-search"></i>
 								<span class="nav-link-inner--text d-lg-none">搜索</span>
-							</a>
+							</button>
 						</li>
 					</ul>
 				</div>
 				<% if (theme.toolbar_icon != '') { %>
 					<a class="navbar-brand navbar-icon-mobile" href="<%= theme.toolbar_icon_link %>">
-						<img src="<%= theme.toolbar_icon %>">
+								<img src="<%= theme.toolbar_icon %>" alt="AlgoStruggler 头像">
 					</a>
 				<% } %>
 				<div id="navbar_menu_mask" data-toggle="collapse" data-target="#navbar_global"></div>
@@ -290,11 +292,11 @@
 		</nav>
 	</header>
 </div>
-<div class="modal fade" id="argon_search_modal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+<div class="modal" id="argon_search_modal" tabindex="-1" role="dialog" aria-labelledby="search-modal-title" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">搜索</h5>
+				<h5 class="modal-title" id="search-modal-title">搜索手记</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -324,12 +326,17 @@
 		let enable_banner_title_typing_effect = theme.enable_banner_title_typing_effect;
 	%>
 	<div id="banner_container" class="banner-container container text-center">
+		<p class="banner-eyebrow">ALGORITHM · ENGINEERING · NOTES</p>
 		<% if (enable_banner_title_typing_effect != true){ %>
 			<div class="banner-title text-white"><span class="banner-title-inner"><%= banner_title %></span>
 		<% } else { %>
 			<div class="banner-title text-white" data-text="<%= banner_title; %>" data-interval="<% theme.banner_typing_effect_interval %>"><span class="banner-title-inner">&nbsp;</span>
 		<% } %>
 		<%- theme.banner_subtitle == '' ? '' : ('<span class="banner-subtitle d-block">' + theme.banner_subtitle + '</span>') %></div>
+		<div class="banner-links" aria-label="专题入口">
+			<a href="<%= url_for('/categories/算法竞赛/') %>">算法竞赛 <span aria-hidden="true">↗</span></a>
+			<a href="<%= url_for('/categories/工程/') %>">工程实践 <span aria-hidden="true">↗</span></a>
+		</div>
 	</div>
 	<% if (theme.banner_background_url != '') { %>
 		<style>

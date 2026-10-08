@@ -1,3 +1,10 @@
+<div class="notes-heading">
+	<div>
+		<span class="section-eyebrow">THE NOTEBOOK</span>
+		<h1><%= is_home() ? '最新手记' : (is_category() ? page.category : (is_tag() ? page.tag : '文章归档')) %></h1>
+	</div>
+	<span class="notes-count"><%= page.total ? '第 ' + page.current + ' / ' + page.total + ' 页' : '' %></span>
+</div>
 <% page.posts.each(function(post){ %>
 	<%- partial('_partial/content-preview', {post: post}) %>
 <% }) %>

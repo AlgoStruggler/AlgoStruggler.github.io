@@ -1,3 +1,13 @@
+---
+title: "第五课：JavaScript 核心"
+date: 2026-09-29 17:54:32
+categories:
+  - 工程
+tags:
+  - JavaScript
+  - 前端
+---
+
 # 第五课：JavaScript 核心
 
 > 一句话总结：`HTML` 是结构，`CSS` 是样式，`JavaScript` 是行为；前两者是静态的，`JS` 让页面动起来。

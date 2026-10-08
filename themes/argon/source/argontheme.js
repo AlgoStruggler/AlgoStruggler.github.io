@@ -1384,6 +1384,10 @@ if (search_path.length == 0) {
 }
 searchFunc($("#local-search-input").data("config.root") + search_path, 'local-search-input', 'local-search-result');
 
+$(document).on("click", ".blog-search-toggle", function(){
+	$("#navbar_global").collapse("hide");
+});
+
 $(document).on("click" , ".search-result-title" , function(){
 	$("#argon_search_modal button[data-dismiss='modal']").click();
 });

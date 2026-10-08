@@ -80,6 +80,9 @@
 	</header>
 
 	<div class="post-content" id="post_content">
+		<% if (post.collection === 'categories' || post.collection === 'tags') { %>
+			<%- partial('collections', {kind: post.collection}) %>
+		<% } %>
 		<%- argon_preprocess_article(post.content, theme, false) %>
 	</div>
 </article>

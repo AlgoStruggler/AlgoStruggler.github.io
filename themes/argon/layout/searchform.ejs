@@ -4,7 +4,9 @@
 		<div class="input-group-prepend">
 			<span class="input-group-text"><i class="fa fa-search"></i></span>
 		</div>
-		<input id="local-search-input" class="form-control" placeholder="搜索什么..." type="text"  autocomplete="off" data-search.path="<%= config.search.path %>" data-config.root="<%= config.root %>">
+		<label class="sr-only" for="local-search-input">搜索文章标题或正文</label>
+		<input id="local-search-input" class="form-control" placeholder="输入标题或正文关键字…" type="search" autocomplete="off" data-search.path="<%= config.search.path %>" data-config.root="<%= config.root %>">
 	</div>
-	<div id="local-search-result"></div>
+	<p class="search-hint">从算法竞赛到工程实践，找一篇你感兴趣的手记。</p>
+	<div id="local-search-result" aria-live="polite"></div>
 </div>
