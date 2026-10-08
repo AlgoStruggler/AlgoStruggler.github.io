@@ -1,7 +1,6 @@
 /* Site overrides. Keep Argon's layout, Pjax and reading controls intact. */
 :root {
   --blog-accent: var(--themecolor);
-  --blog-accent: var(--blog-accent);
   --blog-surface: #fff;
   --blog-background: #f5f6fa;
   --blog-text: #263149;
@@ -11,7 +10,6 @@
 }
 html.darkmode {
   --blog-accent: var(--themecolor-light);
-  --blog-accent: var(--themecolor-light);
   --blog-surface: #252a36;
   --blog-background: #191d27;
   --blog-text: #e5e9f2;
@@ -19,13 +17,13 @@ html.darkmode {
   --blog-border: #363d4e;
   --blog-tint: #303449;
 }
-body.blog-ui { background: var(--blog-background) !important; color: var(--blog-text); }
+body.blog-ui { background: var(--blog-background) !important; color: var(--blog-text); isolation: isolate; }
 .blog-ui a:focus-visible, .blog-ui button:focus-visible, .blog-ui input:focus-visible {
   outline: 3px solid var(--blog-accent); outline-offset: 4px;
 }
 .skip-link { position: fixed; top: -80px; left: 20px; z-index: 2000; padding: 12px 20px; background: var(--blog-surface); border-radius: 8px; }
 .skip-link:focus { top: 12px; }
-.blog-ui #navbar-main { background: var(--blog-surface) !important; border-bottom: 1px solid var(--blog-border); box-shadow: none; }
+.blog-ui #navbar-main { background: var(--blog-surface) !important; background-image: linear-gradient(var(--blog-surface), var(--blog-surface)) !important; border-bottom: 1px solid var(--blog-border); box-shadow: none; }
 html .blog-ui #navbar-main { --toolbar-color: 255, 255, 255; backdrop-filter: blur(16px); }
 html.darkmode .blog-ui #navbar-main { --toolbar-color: 37, 42, 54; }
 html.darkmode body.blog-ui { background: var(--blog-background) !important; color: var(--blog-text); }
@@ -35,7 +33,8 @@ html.darkmode .blog-ui .leftbar-banner { background: none; }
 html.darkmode .blog-ui .leftbar-menu-item > a { color: var(--blog-muted) !important; }
 html.darkmode .blog-ui .leftbar-menu-item.current > a { background: var(--blog-tint); color: var(--blog-accent) !important; }
 html.darkmode .blog-ui .tag.post-meta-detail-tag { background: var(--blog-tint); color: var(--blog-accent); }
-html.darkmode .blog-ui #footer { background: transparent !important; }
+html.darkmode .blog-ui #footer { background: var(--blog-surface) !important; }
+html.darkmode .blog-ui #content:after { filter: brightness(.45); }
 .blog-ui #navbar-main .navbar-brand, .blog-ui #navbar-main .nav-link { color: var(--blog-text) !important; }
 .blog-ui #navbar-main .nav-link:hover { color: var(--blog-accent) !important; }
 .blog-search-toggle { background: transparent; border: 0; cursor: pointer; min-width: 44px; min-height: 44px; }
@@ -45,14 +44,16 @@ html.darkmode .blog-ui #footer { background: transparent !important; }
 .blog-ui #navbar-main .container { max-width: 1160px !important; }
 .blog-ui #banner {
   height: auto; min-height: 324px; padding: 104px 24px 56px; margin-bottom: 0;
-  background: radial-gradient(ellipse at 12% 5%, rgba(94,114,228,.13), transparent 55%), radial-gradient(ellipse at 90% 90%, rgba(160,139,224,.12), transparent 50%), var(--blog-background) !important;
-  border-bottom: 1px solid var(--blog-border);
+  background-color: var(--blog-background);
+  position: relative; isolation: isolate;
+  border-bottom: 1px solid rgba(255,255,255,.15);
 }
+.blog-ui #banner:before { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(100deg, rgba(18,28,48,.76), rgba(18,28,48,.48) 52%, rgba(18,28,48,.12)); pointer-events: none; }
 .blog-ui #banner .shape { display: none; }
 .blog-ui #banner_container { height: auto !important; position: relative; max-width: 1120px; text-align: left !important; }
-.blog-ui .banner-eyebrow { color: var(--blog-accent); font-size: 11px; font-weight: 700; letter-spacing: 2.8px; margin-bottom: 18px; }
-.blog-ui .banner-title { position: static; transform: none; color: var(--blog-text) !important; font-size: clamp(28px, 3.5vw, 42px); font-weight: 700; line-height: 1.35; letter-spacing: -1.1px; text-shadow: none; }
-.blog-ui .banner-subtitle { color: var(--blog-muted); font-size: 15px; font-weight: 400; line-height: 1.8; letter-spacing: .4px; margin-top: 16px; opacity: 1; }
+.blog-ui .banner-eyebrow { color: #e2e7ff; font-size: 11px; font-weight: 700; letter-spacing: 2.8px; margin-bottom: 18px; }
+.blog-ui .banner-title { position: static; transform: none; color: #fff !important; font-size: clamp(28px, 3.5vw, 42px); font-weight: 700; line-height: 1.35; letter-spacing: -1.1px; text-shadow: 0 2px 12px rgba(0,0,0,.2); }
+.blog-ui .banner-subtitle { color: #edf0f7; font-size: 15px; font-weight: 400; line-height: 1.8; letter-spacing: .4px; margin-top: 16px; opacity: 1; }
 .banner-links { display: flex; gap: 12px; margin-top: 24px; }
 .banner-links a { display: inline-flex; align-items: center; gap: 28px; padding: 9px 16px; border: 1px solid var(--blog-border); border-radius: 8px; background: var(--blog-surface); color: var(--blog-text); font-size: 13px; font-weight: 600; }
 .banner-links a:hover { border-color: var(--blog-accent); color: var(--blog-accent); }
@@ -75,7 +76,7 @@ html.darkmode .blog-ui #footer { background: transparent !important; }
 .blog-ui #leftbar_part2.sticky { width: 248px; }
 .blog-ui #leftbar_overview_author_name { font-size: 16px; color: var(--blog-text); }
 .blog-ui #leftbar_catalog .index-link { color: var(--blog-muted); font-size: 13px; line-height: 1.7; }
-.notes-heading { display: flex; align-items: center; justify-content: space-between; margin: 0 2px 20px; }
+.notes-heading { display: flex; align-items: center; justify-content: space-between; margin: 0 0 20px; padding: 16px 22px; border: 1px solid var(--blog-border); border-radius: 12px; background: var(--blog-surface); }
 .section-eyebrow { color: var(--blog-muted); font-size: 10px; letter-spacing: 2px; }
 .notes-heading h1 { color: var(--blog-text); font-size: 22px; font-weight: 700; margin: 5px 0 0; }
 .notes-count { color: var(--blog-muted); font-size: 12px; }
@@ -113,7 +114,7 @@ html.darkmode .blog-ui #footer { background: transparent !important; }
 .blog-ui article table:not(.hljs-ln) th { background: var(--blog-tint); }
 .blog-ui article table:not(.hljs-ln) td, .blog-ui article table:not(.hljs-ln) th { padding: 12px 14px; border-color: var(--blog-border); }
 .blog-ui article img { border-radius: 10px; }
-.blog-ui #footer { background: transparent !important; border: 0 !important; box-shadow: none !important; color: var(--blog-muted); font-size: 12px; line-height: 2; padding: 20px 0 36px; }
+.blog-ui #footer { background: var(--blog-surface) !important; border: 1px solid var(--blog-border) !important; box-shadow: none !important; color: var(--blog-muted); font-size: 12px; line-height: 2; padding: 20px; margin-bottom: 24px; }
 .blog-ui #footer #busuanzi_container_site_uv { display: none; }
 .blog-ui .page-link { border-radius: 8px; box-shadow: none; }
 .blog-ui .modal-content { background: var(--blog-surface); border: 1px solid var(--blog-border); border-radius: 16px; }

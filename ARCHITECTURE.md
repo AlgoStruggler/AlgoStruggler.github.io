@@ -71,8 +71,10 @@ AlgoStruggler.github.io/
 4. 渲染文章，执行主题 helper，例如摘要、字数、阅读时间、头图和图片懒加载预处理，再生成页面。
 5. `layout/layout.ejs` 包含 header、sidebar、footer，并按首页、文章、独立页、归档、标签或分类选择内容模板。
 6. `layout/post.ejs` 对文章使用 `_partial/content-article.ejs` 和 `article-bottom.ejs`；独立页面使用 `_partial/content-page.ejs`。单纯创建通用 page 不会自动获得分类/标签总览能力。
-7. `source/` 与主题 `source/` 的静态资源进入输出。当前头像仍来自站点 `author.png`；`violet.jpg` 和主题 `banner.jpg` 保留输出，但界面已改用轻量 CSS 背景，不再将这两张图片配置为页面背景。
+7. `source/` 与主题 `source/` 的静态资源进入输出。头像及全屏插画背景分别来自站点 `author.png`、`violet.jpg`。按用户要求恢复原背景配置，`transparent_banner: true` 让插画延续到横幅；主题 `banner.jpg` 保留原配置，关闭透明横幅时可作为独立横幅图。
 8. `header.ejs` 在原主题 `style.css` 之后加载 `blog.css`。新样式作用于 `body.blog-ui`，负责导航、横幅、卡片、正文、搜索与集合页面；以 CSS 变量适配 `html.darkmode`，在 900px 以下沿用主题抽屉侧栏，在 600px 以下调整移动阅读。
+
+背景沿用主题 `#content:before` / `:after` 的固定图层，`body.blog-ui` 的 `isolation: isolate` 保证图层位于页面底色之上、内容之下。横幅只增加局部渐变遮罩并采用白色文字；正文卡片、列表标题和页脚保留实色底，夜间背景压暗。顶栏使用实色背景图层，避免主题滚动脚本将顶栏背景颜色设为透明后降低文字对比度。
 
 ## 4. 内容、路由与资源
 
