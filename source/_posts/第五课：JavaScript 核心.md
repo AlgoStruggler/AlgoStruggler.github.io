@@ -1,12 +1,5 @@
----
-title: "第五课：JavaScript 核心"
-date: 2026-09-29 17:54:32
-categories:
-  - 工程
-tags:
-  - JavaScript
-  - 前端
----
+# 第五课：JavaScript 核心
+
 > 一句话总结：`HTML` 是结构，`CSS` 是样式，`JavaScript` 是行为；前两者是静态的，`JS` 让页面动起来。
 
 ## JavsScript 基础
@@ -111,7 +104,7 @@ console.log(typeof null);      // "object"（历史 bug）
 
 **控制台里看到：**
 
-```plaintext
+```text
 number
 string
 object
@@ -177,7 +170,7 @@ console.log(doubled); // [2, 4, 6]
 
 **控制台里看到：**
 
-```plaintext
+```text
 [2, 4, 6]
 ```
 
@@ -390,7 +383,7 @@ form.addEventListener('submit', (e) => {
 `JS` 是单线程的，但能处理异步任务。
 原因是事件循环（`Event Loop`）：
 
-```plaintext
+```text
 调用栈（Call Stack）
    ↓
 微任务队列（Microtask Queue）：Promise.then、queueMicrotask
@@ -412,7 +405,7 @@ console.log('4');
 
 **控制台里看到：**
 
-```plaintext
+```text
 1
 4
 3
@@ -603,7 +596,7 @@ console.log('3');
 
 **控制台里看到：**
 
-```plaintext
+```text
 1
 3
 2
@@ -647,3 +640,366 @@ const obj = {
 ```
 
 > 一句话总结：普通函数的 `this` 看调用方式，箭头函数的 `this` 看定义位置。
+
+## 六、小练习
+
+### 1. 写一个调用公开 API 的页面
+
+**需求：**
+
+- 页面包含：输入框、按钮、结果展示区
+- 输入 `GitHub` 用户名，点击按钮，调用 `GitHub API`
+- 展示用户名、头像、仓库数
+- 加载中显示“加载中...”，失败显示错误信息
+
+- 输入 `AlgoStruggler`，点按钮，显示用户信息
+- 输入不存在的用户名，显示错误
+- 加载过程中有提示
+
+- 页面能正常打开
+- 输入用户名能查到信息
+- 错误能提示
+- 加载中有提示
+- 代码用 `async/await`
+- 用 `res.ok` 检查响应
+
+**步骤：**
+
+```bash
+mkdir -p ~/Engineering-Learning/practice/js-fetch-practice
+cd ~/Engineering-Learning/practice/js-fetch-practice
+touch index.html style.css main.js
+nano index.html
+nano style.css
+nano main.js
+```
+
+**写 `index.html`** 
+
+```html
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GitHub 用户查询</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>GitHub 用户查询</h1>
+
+    <!-- 输入框 + 按钮 -->
+    <div class="search-box">
+      <input 
+        type="text" 
+        id="username-input" 
+        placeholder="输入 GitHub 用户名，例如 AlgoStruggler"
+      >
+      <button id="search-btn">查询</button>
+    </div>
+
+    <!-- 结果展示区 -->
+    <div id="result" class="result"></div>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>
+```
+
+**写 `style.css`**
+
+```bash
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, "Segoe UI", sans-serif;
+  background: #f5f5f5;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.container {
+  background: white;
+  padding: 32px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 480px;
+}
+
+h1 {
+  font-size: 22px;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #333;
+}
+
+.search-box {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+#username-input {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+#username-input:focus {
+  border-color: #0366d6;
+}
+
+#search-btn {
+  padding: 10px 20px;
+  background: #0366d6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+#search-btn:hover {
+  background: #0255b3;
+}
+
+#search-btn:disabled {
+  background: #999;
+  cursor: not-allowed;
+}
+
+/* 结果区样式 */
+.result {
+  min-height: 100px;
+  text-align: center;
+  color: #555;
+  font-size: 14px;
+}
+
+/* 用户卡片 */
+.user-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.user-card img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 3px solid #0366d6;
+}
+
+.user-card .name {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+.user-card .repos {
+  color: #666;
+}
+
+/* 错误提示 */
+.error {
+  color: #d73a49;
+  padding: 12px;
+  background: #ffeef0;
+  border-radius: 8px;
+}
+
+/* 加载提示 */
+.loading {
+  color: #0366d6;
+}
+```
+
+**写 `main.js`**
+
+```js
+// 1. 获取 DOM 元素
+const input = document.getElementById('username-input');
+const btn = document.getElementById('search-btn');
+const result = document.getElementById('result');
+
+// 2. 显示加载中
+function showLoading() {
+  result.innerHTML = '<p class="loading">加载中...</p>';
+  btn.disabled = true;
+}
+
+// 3. 显示错误
+function showError(message) {
+  result.innerHTML = `<p class="error">❌ ${message}</p>`;
+  btn.disabled = false;
+}
+
+// 4. 显示用户信息
+function showUser(user) {
+  result.innerHTML = `
+    <div class="user-card">
+      <img src="${user.avatar_url}" alt="${user.login} 的头像">
+      <div class="name">${user.login}</div>
+      <div class="repos">公开仓库数：${user.public_repos}</div>
+    </div>
+  `;
+  btn.disabled = false;
+}
+
+// 5. 查询用户（async/await + res.ok）
+async function fetchUser(username) {
+  const url = `https://api.github.com/users/${username}`;
+  const res = await fetch(url);
+
+  if (!res.ok) {
+    if (res.status === 404) {
+      throw new Error('用户不存在');
+    }
+    throw new Error(`请求失败：${res.status}`);
+  }
+
+  return await res.json();
+}
+
+// 6. 处理点击事件
+async function handleSearch() {
+  const username = input.value.trim();
+
+  if (!username) {
+    showError('请输入用户名');
+    return;
+  }
+
+  showLoading();
+
+  try {
+    const user = await fetchUser(username);
+    showUser(user);
+  } catch (err) {
+    showError(err.message);
+  }
+}
+
+// 7. 绑定事件
+btn.addEventListener('click', handleSearch);
+input.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') handleSearch();
+});
+```
+
+在终端执行：
+
+```bash
+xdg-open index.html
+# 也可以在终端中执行 code . ，可以在 vscode 中打开，安装 Live Sercer 即可右键文件打开
+```
+
+**测试用例：**
+
+| 输入                               | 预期结果                  |
+| :--------------------------------- | :------------------------ |
+| `AlgoStruggler`                    | 显示头像、用户名、仓库数  |
+| 空白                               | 显示"请输入用户名"        |
+| `this-user-does-not-exist-xyz-123` | 显示"用户不存在"          |
+| 网络正常时                         | 短暂"加载中..."然后出结果 |
+
+### 2. 用 `DevTools Console` 验证事件循环 问题：理解同步、微任务、宏任务
+
+**需求：**
+
+- 打开任意页面，`F12` → `Console`
+- 粘贴上面“事件循环”里的代码
+- 观察输出顺序
+- 输出顺序是 `1 4 3 2`
+- 能解释为什么 `3` 在 `2` 前面
+- 能说出微任务和宏任务的区别
+
+**步骤：**
+
+打开任意网页（比如 `https://www.baidu.com`）
+
+按 **`F12`**（或者右键 → 检查）
+
+点顶部的 **`Console`** 标签
+
+粘贴以下代码：
+
+```js
+console.log('1');
+
+setTimeout(() => {
+  console.log('2');
+}, 0);
+
+Promise.resolve().then(() => {
+  console.log('3');
+});
+
+console.log('4');
+```
+
+回车执行，你会看到：
+
+```text
+1
+4
+3
+2
+```
+
+**关键概念：JS 是单线程 + 任务队列**
+
+`JS` 只有一个"主线程"在跑代码。但有些任务是"异步"的（比如定时器、网络请求、`Promise`），它们**不能立刻执行**，要等主线程空闲了再执行。
+
+这些"等会儿执行"的任务被放进**两种不同的队列**：
+
+| 队列       | 名字              | 放什么                                               | 谁先执行 |
+| :--------- | :---------------- | :--------------------------------------------------- | :------- |
+| 微任务队列 | `Microtask Queue` | `Promise.then`、`queueMicrotask`、`MutationObserver` | **先**   |
+| 宏任务队列 | `Macrotask Queue` | `setTimeout`、`setInterval`、`I/O` 、`UI` 渲染       | **后**   |
+
+**执行规则**（这是重点）：
+
+> 每执行完一个宏任务后，主线程会**先把微任务队列里所有任务全部执行完**，然后才去取下一个宏任务。
+
+------
+
+### 现在逐行模拟执行
+
+代码从上到下：
+
+**① `console.log('1')`**
+同步代码，立即执行 → 输出 `1`
+
+**② `setTimeout(() => console.log('2'), 0)`**
+把回调注册到**宏任务队列**，即使延迟是 0，也要等主线程空闲才能跑。
+→ **宏任务队列：`[log('2')]`**
+
+**③ `Promise.resolve().then(() => console.log('3'))`**
+`Promise`  已经 `resolve` ，回调立刻被放进**微任务队列**。
+→ **微任务队列：`[log('3')]`**
+
+**④ `console.log('4')`**
+同步代码，立即执行 → 输出 `4`
+
+**⑤ 同步代码执行完，主线程空闲了。开始清空微任务队列。**
+执行 `log('3')` → 输出 `3`
+
+**⑥ 微任务清空后，取下一个宏任务。**
+执行 `log('2')` → 输出 `2`
