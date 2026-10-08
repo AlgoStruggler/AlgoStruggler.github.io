@@ -37,7 +37,7 @@
 | 站点信息、链接规则、生成器设置 | 根目录 `_config.yml` |
 | 菜单、外观、评论开关、主题参数 | `source/_data/argon.yml` |
 | 页面结构 | `themes/argon/layout/*.ejs` 及其局部模板 |
-| 浏览器交互、站点定制样式 | `themes/argon/source/argontheme.js`、`blog.css`；原主题样式为 `style.css` |
+| 浏览器交互、样式 | `themes/argon/source/argontheme.js`、`style.css` |
 | 构建期主题 helper | `themes/argon/scripts/functions.js` |
 | 依赖、构建及发布 | `package.json`、`package-lock.json`、`.github/workflows/pages.yml` |
 

@@ -12,7 +12,7 @@ flowchart LR
   C[站点与主题配置] --> H
   T[Argon EJS 与构建 helper] --> H
   H --> P[public HTML 与静态资源]
-  H --> S[搜索索引 search.xml]
+  H --> S[搜索索引 search.json]
   P --> G[GitHub Pages]
   S --> G
   G --> B[浏览器 Argon 交互]
@@ -47,9 +47,6 @@ AlgoStruggler.github.io/
 ├── source/
 │   ├── _data/argon.yml      # 实际生效的主题配置
 │   ├── _posts/              # Markdown 与同名文章资源目录
-│   ├── about/               # 关于页面
-│   ├── categories/          # 分类总览页面，collection: categories
-│   ├── tags/                # 标签总览页面，collection: tags
 │   └── assets/img/          # author.png、violet.jpg 等站点资源
 ├── themes/argon/
 │   ├── _config.yml          # 主题自带默认配置
@@ -71,10 +68,8 @@ AlgoStruggler.github.io/
 4. 渲染文章，执行主题 helper，例如摘要、字数、阅读时间、头图和图片懒加载预处理，再生成页面。
 5. `layout/layout.ejs` 包含 header、sidebar、footer，并按首页、文章、独立页、归档、标签或分类选择内容模板。
 6. `layout/post.ejs` 对文章使用 `_partial/content-article.ejs` 和 `article-bottom.ejs`；独立页面使用 `_partial/content-page.ejs`。单纯创建通用 page 不会自动获得分类/标签总览能力。
-7. `source/` 与主题 `source/` 的静态资源进入输出。头像及全屏插画背景分别来自站点 `author.png`、`violet.jpg`。按用户要求恢复原背景配置，`transparent_banner: true` 让插画延续到横幅；主题 `banner.jpg` 保留原配置，关闭透明横幅时可作为独立横幅图。
-8. `header.ejs` 在原主题 `style.css` 之后加载 `blog.css`。新样式作用于 `body.blog-ui`，负责导航、横幅、卡片、正文、搜索与集合页面；以 CSS 变量适配 `html.darkmode`，在 900px 以下沿用主题抽屉侧栏，在 600px 以下调整移动阅读。
-
-背景沿用主题 `#content:before` / `:after` 的固定图层，`body.blog-ui` 的 `isolation: isolate` 保证图层位于页面底色之上、内容之下。横幅只增加局部渐变遮罩并采用白色文字；正文卡片、列表标题和页脚保留实色底，夜间背景压暗。顶栏使用实色背景图层，避免主题滚动脚本将顶栏背景颜色设为透明后降低文字对比度。
+7. `source/` 与主题 `source/` 的静态资源进入输出。头像及全屏插画背景分别来自站点 `author.png`、`violet.jpg`。`transparent_banner: true` 让插画延续到横幅；主题 `banner.jpg` 保留原配置。
+8. 用户要求回滚到优化前版本，网站配置与主题源码已恢复为 `6b6e152` 的内容；删除优化期间新增的 `blog.css`、集合模板和三个独立页面。当前继续使用原 `style.css`，恢复原圆角、居中标题、公告、打字效果、元信息和移动设置。开发文档及 JavaScript 文章更新仍保留。
 
 ## 4. 内容、路由与资源
 
@@ -82,9 +77,7 @@ AlgoStruggler.github.io/
 
 `post_asset_folder: true` 允许同名文章资源目录，例如第零篇的比赛照片。新图片沿用文章内 `asset_img` 用法或经过验证的本地资源引用；Linux 部署区分文件名大小写。
 
-首页和文章列表分页为每页 10 篇，首页按 `-date` 排序。archive/category/tag 插件生成归档和各分类、标签详情页。`source/categories/index.md` 和 `source/tags/index.md` 通过 front matter `collection` 指定集合类型，`content-page.ejs` 调用 `collections.ejs`，从 `site.categories` 或 `site.tags` 动态生成名称、篇数与详情链接。关于页面由 `source/about/index.md` 渲染，内容来自现有站点定位及公开联系方式。三个总览/介绍路径现已存在。
-
-`index.ejs` 添加列表标题和分页说明；文章预览提供显式“阅读全文”入口。界面层修改不改变原文章的标题、日期或 permalink。主题配置简化元信息，启用夜间切换、移动缩放，关闭装饰公告、打字效果与第三方平滑滚动，保留原高亮和 Pjax。
+首页和文章列表分页为每页 10 篇，首页按 `-date` 排序。archive/category/tag 插件生成归档和各分类、标签详情页。回滚恢复优化前页面结构，当前没有 `/categories/index.html`、`/tags/index.html` 和 `/about/index.html`；菜单有链接不会自动生成对应页面。回滚不修改已有文章标题、日期或 permalink。
 
 ## 5. 浏览器交互与已知不一致
 
@@ -96,7 +89,7 @@ AlgoStruggler.github.io/
 
 ### 搜索
 
-`hexo-generator-search` 按 `_config.yml` 生成 `public/search.xml`，索引包含 12 篇文章。`searchform.ejs` 将路径写入输入框，浏览器 `argontheme.js` 的 `searchFunc()` 使用 `dataType: "xml"` 并遍历 `entry` 元素。界面优化中将生成端从 JSON 改为 XML，修复格式不一致；沿用现有主题搜索，不新增搜索依赖。模态框设置标题关联，输入框提供标签，结果区支持 `aria-live`。
+`hexo-generator-search` 按回滚后的原配置生成 `public/search.json`，索引包含 12 篇文章。主题 `searchFunc()` 使用 `dataType: "xml"` 并遍历 `entry` 元素，恢复了优化前的数据格式不一致状态。此前 XML 搜索修复与界面优化一起撤销；如果用户另行要求修复搜索，再按 FR-04 实施。
 
 ### Pjax、媒体与外部服务
 
@@ -127,4 +120,4 @@ Gitalk、giscus、Waline、Twikoo、百度统计及 gtag 的配置开关均关�
 | 输出目录可再生成 | 通过源码变更修复和回退，避免本地与线上行为分叉 |
 | 先验证契约再声明完成 | 搜索格式、菜单目标和浏览器生命周期均需要跨文件核对 |
 
-新增简单页面从 `source/<页面>/index.md` 和 page 模板入手；分类/标签总览复用 `collections.ejs`，自动跟随内容更新。新增构建 helper 放在主题 `scripts/`，交互从 `argontheme.js` 生命周期入手，外观先尝试 `argon.yml` 配置，再修改独立的 `blog.css`，避免在原主题 CSS 中继续堆叠站点定制。结构性调整时同步本文件并在进度中留下理由、验证证据和兼容影响。
+新增简单页面从 `source/<页面>/index.md` 和 page 模板入手；分类/标签总览需要重新评估主题能力。新增构建 helper 放在主题 `scripts/`，交互从 `argontheme.js` 生命周期入手，外观先尝试 `argon.yml` 配置，再编辑现有 `style.css`。当前用户已撤销本轮界面优化，不在后续任务中自动恢复已删除的定制。结构性调整时同步本文件并记录理由、验证和兼容影响。

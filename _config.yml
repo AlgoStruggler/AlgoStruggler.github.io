@@ -107,7 +107,7 @@ deploy:
 
 # 搜索功能配置
 search:
-  path: search.xml
+  path: search.json
   field: post
   content: true
   format: html
