@@ -1,6 +1,6 @@
 # 项目架构
 
-最后核对：2026-10-08（Asia/Shanghai）。本文描述当前实际实现；改进建议和动态状态见 [PROGRESS.md](PROGRESS.md)，目标及验收见 [REQUIREMENT.md](REQUIREMENT.md)。
+最后核对：2026-10-12（Asia/Shanghai）。本文描述当前实际实现；改进建议和动态状态见 [PROGRESS.md](PROGRESS.md)，目标及验收见 [REQUIREMENT.md](REQUIREMENT.md)。
 
 ## 1. 总体结构
 
@@ -77,6 +77,8 @@ AlgoStruggler.github.io/
 
 用户提供的“额外篇 SP1：顺序结构程序设计题解”使用固定路径 `/2026/10/08/sp1-sequential-solutions/`，归入算法竞赛分类。为防止 Markdown 消除 LaTeX 中的 `\%` 等转义，文章内 18 处相关公式用 Hexo `raw` 标签保护；正文及 48 份 C++ 代码与用户原稿一致，没有修改全局渲染配置。
 
+“第六篇：基础数据结构”使用固定路径 `/2026/10/12/basic-data-structures/`，归入算法竞赛分类，标签为“数据结构 / C++”。正文讲顺序表、链表、栈、队列、树和二叉堆，补充双端队列；包含 9 份独立 C++11 程序、14 个 `plaintext` 示意块和 7 张表格，沿用现有 Markdown 与高亮链路。
+
 `post_asset_folder: true` 允许同名文章资源目录，例如第零篇的比赛照片。新图片沿用文章内 `asset_img` 用法或经过验证的本地资源引用；Linux 部署区分文件名大小写。
 
 首页和文章列表分页为每页 10 篇，首页按 `-date` 排序。archive/category/tag 插件生成归档和各分类、标签详情页。回滚恢复优化前页面结构，当前没有 `/categories/index.html`、`/tags/index.html` 和 `/about/index.html`；菜单有链接不会自动生成对应页面。回滚不修改已有文章标题、日期或 permalink。
@@ -91,7 +93,7 @@ AlgoStruggler.github.io/
 
 ### 搜索
 
-`hexo-generator-search` 按回滚后的原配置生成 `public/search.json`，索引包含 13 篇文章。主题 `searchFunc()` 使用 `dataType: "xml"` 并遍历 `entry` 元素，恢复了优化前的数据格式不一致状态。此前 XML 搜索修复与界面优化一起撤销；如果用户另行要求修复搜索，再按 FR-04 实施。
+`hexo-generator-search` 按回滚后的原配置生成 `public/search.json`，索引包含 14 篇文章。主题 `searchFunc()` 使用 `dataType: "xml"` 并遍历 `entry` 元素，恢复了优化前的数据格式不一致状态。此前 XML 搜索修复与界面优化一起撤销；如果用户另行要求修复搜索，再按 FR-04 实施。
 
 ### Pjax、媒体与外部服务
 
