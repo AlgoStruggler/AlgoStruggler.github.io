@@ -1,6 +1,6 @@
 # 项目架构
 
-最后核对：2026-11-20（Asia/Shanghai）。本文描述当前实际实现；改进建议和动态状态见 [PROGRESS.md](PROGRESS.md)，目标及验收见 [REQUIREMENT.md](REQUIREMENT.md)。
+最后核对：2026-11-25（Asia/Shanghai）。本文描述当前实际实现；改进建议和动态状态见 [PROGRESS.md](PROGRESS.md)，目标及验收见 [REQUIREMENT.md](REQUIREMENT.md)。
 
 ## 1. 总体结构
 
@@ -103,7 +103,9 @@ AlgoStruggler.github.io/
 
 Pjax 对站内导航局部更新 `#primary`、侧栏等容器；新交互必须适配首次加载和跳转后的生命周期。图片经主题处理实现懒加载和放大，公式按配置从 CDN 加载 KaTeX；字体和部分外部资源也有网络依赖，构建时不会证明这些请求成功。
 
-Gitalk、giscus、Waline、Twikoo、百度统计及 gtag 的配置开关均关闭。不过 `header.ejs` 仍直接加载不蒜子脚本用于访问统计，不能将“分析配置关闭”等同于“无第三方网络请求”。新增或调整外部服务时检查模板实际加载逻辑。
+Gitalk、giscus、Waline、Twikoo、百度统计及 gtag 的配置开关均关闭。页脚的访客数使用 `header.ejs` 异步加载的原不蒜子脚本。
+
+文章阅读次数由 Argon 的 `article-views.js` 记录。正文模板通过 `article_meta` 中的 `read` 输出 Hexo 生成的固定链接。浏览器首次打开文章或在 Pjax 替换 `#primary` 后，以该链接为键请求 `busuanzi.9420.ltd` 的 `POST /api`。接口记录一次访问并返回累计次数。计数从接入后开始累计。脚本仅在站点配置域名上提交计数，本地预览、首页及列表页跳过请求。请求失败或超时时，文章页显示“阅读次数暂不可用”。[不蒜子 JSON API 文档](https://github.com/soxft/busuanzi/wiki/API)
 
 ## 6. 构建与发布
 
