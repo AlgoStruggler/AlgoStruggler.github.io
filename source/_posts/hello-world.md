@@ -1,5 +1,6 @@
 ---
 title: Hello World
+permalink: 2026/11/25/hello-world/
 categories:
   - 工程
 ---

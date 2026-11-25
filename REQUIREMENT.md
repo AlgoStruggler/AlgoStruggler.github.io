@@ -57,7 +57,7 @@ tags:
 
 - 日期按 `Asia/Shanghai` 理解。`title` 是文章展示标题；`date` 参与排序和默认 URL。历史 `hello-world.md` 未显式设置日期，不能据此推导它的固定发布日期。
 - `categories` 沿用“算法竞赛”或“工程”；`tags` 按内容设置，新增文章优先使用列表，兼容已有单字符串形式。
-- `permalink` 可覆盖默认 URL，当前 HTML + CSS 文章使用 `2026/09/27/lesson-04-html-css/`。标题或文件名调整时要检查 URL 是否改变及所有引用。
+- `permalink` 可覆盖默认 URL。HTML + CSS 文章使用 `2026/09/27/lesson-04-html-css/`，Hello World 保留部署时的线上地址 `2026/11/25/hello-world/`。标题或文件名调整时要检查 URL 是否改变及所有引用。
 - `thumbnail`、`excerpt`、`first_image_as_thumbnail`、`after_post` 是主题支持的可选文章属性，按实际需要使用。
 - 内容放在 `source/_posts/`，专属资源放在同名无扩展名目录；全局图片放 `source/assets/img/`。新增独立页面放 `source/<页面>/index.md`，并核对 Argon 页面模板能否表达目标内容；仅创建文件不能代替页面验收。
 - 算法文章应说明问题、思路、适用条件、复杂度及示例；工程教程应交代环境、操作、预期结果与常见问题。针对本次新增内容验收，不追溯强制改写全部历史文章。
