@@ -25,8 +25,10 @@
 			if (response.ok) {
 				const result = await response.json();
 				const views = result.data?.page_pv;
-				if (result.success && Number.isSafeInteger(views) && views >= 0) {
-					label = `阅读 ${views.toLocaleString('zh-CN')} 次`;
+				const baseline = Number(count.dataset.articleViewsBaseline ?? 0);
+				const total = baseline + views;
+				if (result.success && Number.isSafeInteger(views) && views >= 0 && Number.isSafeInteger(total)) {
+					label = `阅读 ${total.toLocaleString('zh-CN')} 次`;
 				}
 			}
 		} catch {
