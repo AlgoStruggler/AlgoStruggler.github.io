@@ -107,6 +107,8 @@ Gitalk、giscus、Waline、Twikoo、百度统计及 gtag 的配置开关均关�
 
 文章阅读次数由 Argon 的 `article-views.js` 记录。正文模板通过 `article_meta` 中的 `read` 输出 Hexo 生成的固定链接。浏览器首次打开文章或在 Pjax 替换 `#primary` 后，以该链接为键请求 `busuanzi.9420.ltd` 的 `POST /api`。接口记录一次访问并返回累计次数。计数从接入后开始累计。脚本仅在站点配置域名上提交计数，本地预览、首页及列表页跳过请求。请求失败或超时时，文章页显示“阅读次数暂不可用”。[不蒜子 JSON API 文档](https://github.com/soxft/busuanzi/wiki/API)
 
+`source/_data/article_views_legacy.yml` 以文章固定路径保存原不蒜子的累计访问量快照。正文模板在构建时读取数据，有记录的文章显示“旧版阅读 N 次”，有效的 `0` 也会显示。两个统计来源可能覆盖同一次访问，页面分别显示旧版快照和实时值。旧版快照在构建期渲染，可随正文直接显示。[旧版不蒜子查询实现](https://github.com/soxft/busuanzi-sync/blob/main/bsz_origin/bsz_origin.go)
+
 ## 6. 构建与发布
 
 本地 `npm run build` 调用 `hexo generate`；干净构建先运行 `npm run clean`。`public/` 及 `db.json` 不跟踪，源文件是修复和回退的依据。受限环境中若文件监听报 EPERM，可通过 `npm run server -- --static --ip 127.0.0.1 --port 4408` 预览构建产物；此模式不自动重新生成文件，修改后先执行 build。4408 为本轮使用的空闲端口，不是部署配置。

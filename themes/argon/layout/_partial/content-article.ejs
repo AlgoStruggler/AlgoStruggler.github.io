@@ -53,14 +53,21 @@
 							}) %>
 						</div>
 					<% }
-					if (meta_list[i] == 'read'){ %>
+					if (meta_list[i] == 'read'){
+						const permalink = full_url_for(post.path);
+						const legacyPath = decodeURI(new URL(permalink).pathname);
+						const legacyViews = site.data.article_views_legacy?.[legacyPath]; %>
 						<% if (i > 0){ %>
 							<div class="post-meta-devide">|</div>
 						<% } %>
 						<div class="post-meta-detail">
 							<i class="fa fa-book" aria-hidden="true"></i>
-							<span data-article-views="<%= full_url_for(post.path) %>" aria-live="polite">阅读次数暂不可用</span>
+							<span data-article-views="<%= permalink %>" aria-live="polite">阅读次数暂不可用</span>
 						</div>
+						<% if (Number.isSafeInteger(legacyViews) && legacyViews >= 0){ %>
+							<div class="post-meta-devide">|</div>
+							<div class="post-meta-detail" title="同步时从旧版不蒜子查到的累计访问量">旧版阅读 <%= legacyViews.toLocaleString('zh-CN') %> 次</div>
+						<% } %>
 					<% }
 					if (meta_list[i] == 'words'){ %>
 						<% if (i > 0){ %>
